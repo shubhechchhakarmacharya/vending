@@ -84,7 +84,7 @@ class Drink {
       let drinkFound = false;
       for (let i = 0; i < drinks.length; i++) {
         const drink = drinks[i];
-        if (names.value === drink.name) {
+        if (names.value === drink.name && quantity.value < drink.quantity) {
           drink.quantity -= quantity.value;
           drinkFound = true;
           drinks.map((drink, index) => {
@@ -102,7 +102,7 @@ class Drink {
       if (drinkFound) {
         console.log(drinks);
       } else {
-        show.innerHTML = "Drink not found";
+        show.innerHTML = "Please look out the quantity and drink name properly.";
       }
     });
   });
