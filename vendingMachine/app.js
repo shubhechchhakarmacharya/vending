@@ -56,6 +56,12 @@ class Drink {
       this.name = name;
       this.quantity = quantity;
     }
+    getQuantity(){
+      return this.quantity
+    }
+    setQuantity(newQuantity){
+      thisquantity = newQuantity;
+    }
   }
   
   const drinks = [
@@ -78,34 +84,40 @@ class Drink {
       show.innerHTML += html;
     });
   
-  names.addEventListener("change", (e) => {
-    quantity.addEventListener("change", () => {
-      e.preventDefault();
-      let drinkFound = false;
-      for (let i = 0; i < drinks.length; i++) {
-        const drink = drinks[i];
-        if (names.value === drink.name && quantity.value < drink.quantity) {
-          drink.quantity -= quantity.value;
-          drinkFound = true;
-          drinks.map((drink, index) => {
-            const html = `<tr>
-            <td> ${index} </td> 
-              <td> ${names.value} </td> 
-              <td> ${quantity.value} </td> 
-                  </tr>`;
-            show.innerHTML = html;
-          });
-          console.log(drink.quantity , drink.name)
-          break;
+    names.addEventListener("change", (e) => {
+      quantity.addEventListener("change", () => {
+        e.preventDefault();
+        let drinkFound = false;
+        for (let i = 0; i < drinks.length; i++) {
+          const drink = drinks[i];
+          if (names.value.toLowerCase() === drink.name.toLowerCase() && quantity.value < drink.quantity) {
+            drink.quantity -= quantity.value;
+            drinkFound = true;
+            show.innerHTML = ""; //pahile ko wala hatauna lai..
+            
+            drinks.map((drink, index) => {
+              let html = `<tr>
+                <td> ${index + 1} </td> 
+                <td> ${drink.name} </td> 
+                <td> ${drink.quantity} </td> 
+              </tr>`;
+              show.innerHTML += html;
+            });
+            
+            console.log(drink.quantity , drink.name)
+            break;
+          }
         }
-      }
-      if (drinkFound) {
-        console.log(drinks);
-      } else {
-        show.innerHTML = "Please look out the quantity and drink name properly.";
-      }
+        if (drinkFound) {
+          console.log(drinks);
+        } else {
+          show.innerHTML = "*Please look out the quantity and drink name properly.*";
+          show.style.color = "red"
+          show.previousElementSibling.remove();
+        }
+      });
     });
-  });
+    
 
 
   
