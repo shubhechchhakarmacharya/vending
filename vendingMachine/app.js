@@ -47,6 +47,10 @@
 
 
 //Using class 
+const names = document.querySelector(".name");
+const quantity = document.querySelector(".quantity");
+const menu = document.querySelector(".btn");
+const show = document.querySelector("tbody");
 class Drink {
     constructor(name, quantity) {
       this.name = name;
@@ -62,19 +66,17 @@ class Drink {
     new Drink("Dew", 10),
     new Drink("Mirinda", 80),
   ];
-  
-  const names = document.querySelector(".name");
-  const quantity = document.querySelector(".quantity");
-  const menu = document.querySelector(".btn");
-  const show = document.querySelector(".menu");
-  
-  menu.addEventListener("click", (e) => {
-    e.preventDefault();
-    drinks.forEach((drink) => {
-      const html = `<p> ${drink.name}    ${drink.quantity}</p> <br/>`;
+
+    drinks.map((drink,index) => {
+      // let length = drinks.length;
+      // console.log(drink)
+      const html = `<tr>
+      <td> ${index + 1} </td> 
+        <td> ${drink.name} </td> 
+        <td> ${drink.quantity} </td> 
+            </tr>`;
       show.innerHTML += html;
     });
-  });
   
   names.addEventListener("change", (e) => {
     quantity.addEventListener("change", () => {
@@ -85,15 +87,25 @@ class Drink {
         if (names.value === drink.name) {
           drink.quantity -= quantity.value;
           drinkFound = true;
-          console.log(drink.quantity)
+          drinks.map((drink, index) => {
+            const html = `<tr>
+            <td> ${index} </td> 
+              <td> ${names.value} </td> 
+              <td> ${quantity.value} </td> 
+                  </tr>`;
+            show.innerHTML = html;
+          });
+          console.log(drink.quantity , drink.name)
           break;
         }
       }
       if (drinkFound) {
-        show.style.display = "none";
         console.log(drinks);
       } else {
         show.innerHTML = "Drink not found";
       }
     });
   });
+
+
+  
